@@ -4,9 +4,9 @@ grab_clipboard <- function(filepath) {
     script <- paste0(
       "osascript -e \'
           set theFile to (open for access POSIX file \"",
-      filepath, "\" with write permission)
+            filepath, "\" with write permission)
       try
-      write (the clipboard as «class PNGf») to theFile
+        write (the clipboard as «class PNGf») to theFile
       end try
       close access theFile'"
     )
@@ -42,14 +42,13 @@ grab_clipboard <- function(filepath) {
   if (!file.exists(filepath) || file.size(filepath) == 0) {
     stop("Clipboard data is not an image.")
   }
-  filepath
 }
 
 is_blogdown_post <- function() {
-  ## current rmd is a blogdown post?
-  ## Criteria:
-  ## - is a project and .Rproj have something like BuildType: Website
-  ## - filepath like **/post/***
+  # current rmd is a blogdown post?
+  # Criteria:
+  # - is a project and .Rproj have something like BuildType: Website
+  # - filepath like **/post/***
 
   proj_root <- rstudioapi::getActiveProject()
   if (is.null(proj_root)) {
@@ -66,20 +65,34 @@ is_blogdown_post <- function() {
 }
 
 generate_filepath <- function() {
-  ## filepath: absolute path,
-  ## filepath_insert: path in rmd, like ![](filepath_insert),
-  ## for a blogdown post, filepath_insert is different from filepath
-  ## https://lcolladotor.github.io/2018/03/07/blogdown-insert-image-addin/#.XrZ9dxMzbjA
+  #' @return
+  # list of filepath and filepath_insert
+  #   filepath: absolute path, to save image in clipboard
+  #   filepath_insert: path in rmd code, ![](filepath_insert)
+  #
+  # for a blogdown post, filepath_insert is different from filepath
+  # lcolladotor.github.io/2018/03/07/blogdown-insert-image-addin/#.XrZ9dxMzbjA
+  #
+  # for a generic rmd, filepath_insert is same with filepath, while filepath_insert is relative path
 
   filename <- format(Sys.time(), "rmd-img-paste-%Y%m%d%H%M%s.png")
   currpath <- rstudioapi::getSourceEditorContext()$path
-  if (!nchar(currpath)) stop("Please save the file before pasting an image.")
 
   if (is_blogdown_post()) {
     proj_root <- rstudioapi::getActiveProject()
-    post_files <- paste0(tools::file_path_sans_ext(basename(currpath)), "_files")
-    dir <- file.path(proj_root, "static", "post", post_files)
-    dir_insert <- strsplit(dir, "static")[[1]][2] # path like /post/...
+    dir = file.path(
+      proj_root, "static", dirname(gsub(".*content/", "", currpath)),
+      paste0(tools::file_path_sans_ext(basename(currpath)), "_files")
+    )
+
+    # path like /post/..., insert to md
+    dir_insert = strsplit(dir, file.path("static", ""))[[1]][2]
+    dir_insert = file.path(
+      ifelse(getOption("blogdown.insertimage.usebaseurl", FALSE),
+             blogdown:::load_config()$baseurl, ""
+      ), dir_insert
+    )
+
   } else {
     dir <- file.path(dirname(currpath), ".asserts")
     dir_insert <- ".asserts"
@@ -93,8 +106,8 @@ generate_filepath <- function() {
 }
 
 insert_image_code <- function() {
-  docId <- rstudioapi::getSourceEditorContext()$id
-  if (docId %in% c("#console", "#terminal")) {
+  doc_id <- rstudioapi::getSourceEditorContext()$id
+  if (doc_id %in% c("#console", "#terminal")) {
     stop("You can`t insert an image in the console nor in the terminal.
          Please select a line in the source editor.")
   }
@@ -103,5 +116,5 @@ insert_image_code <- function() {
   position <- rstudioapi::getSourceEditorContext()$selection[[1]]$range$start
 
   func <- function(filepath) paste0("![](", filepath, ")")
-  rstudioapi::insertText(position, func(res$filepath_insert), id = docId)
+  rstudioapi::insertText(position, func(res$filepath_insert), id = doc_id)
 }

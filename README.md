@@ -2,7 +2,7 @@
 
 RStudio Addin: Copy images from clipboard into .Rmd files or a blogdown post
 
-![Usage of imageclipr, image from Timag/imageclipr](usage.gif)
+![Usage, image from Timag/imageclipr](https://github.com/Timag/imageclipr/blob/master/usage.gif)
 
 ## Installation
 `devtools::install_github('xiaoa6435/RmdImgPaste')`
@@ -35,13 +35,13 @@ powershell -sta "
 
 in linux (not test):
 ```
-xclip -selection clipboard -t TARGETS -o > targets
-if (any(grepl(".*png$", targets))) {
-  xclip -selection clipboard -t image/png -o > 'test.png'
-}
+xclip -selection clipboard -t image/png -o > 'test.png'
 ```
 
-### where is post image?
+if this Addin not work, you can test if this scipt can can generate test.png file when
+you have a image on clipboard
+
+### where is paste image?
 
 for a general Rmd files, all paste image in curr_path/.assets/, named like rmd-img-paste-%Y%m%d%H%M%s.png
 
@@ -59,4 +59,5 @@ this code is based on https://github.com/Timag/imageclipr and make some changes:
 - remove python dependency
 - remove shiny, only shortcut
 - add support for blogdown post
+
 
