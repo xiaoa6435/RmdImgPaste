@@ -4,9 +4,9 @@ grab_clipboard <- function(filepath) {
     script <- paste0(
       "osascript -e \'
           set theFile to (open for access POSIX file \"",
-      filepath, "\" with write permission)
+            filepath, "\" with write permission)
       try
-      write (the clipboard as «class PNGf») to theFile
+        write (the clipboard as «class PNGf») to theFile
       end try
       close access theFile'"
     )
@@ -42,7 +42,6 @@ grab_clipboard <- function(filepath) {
   if (!file.exists(filepath) || file.size(filepath) == 0) {
     stop("Clipboard data is not an image.")
   }
-  filepath
 }
 
 is_blogdown_post <- function() {

@@ -35,11 +35,11 @@ powershell -sta "
 
 in linux (not test):
 ```
-xclip -selection clipboard -t TARGETS -o > targets
-if (any(grepl(".*png$", targets))) {
-  xclip -selection clipboard -t image/png -o > 'test.png'
-}
+xclip -selection clipboard -t image/png -o > 'test.png'
 ```
+
+if this Addin not work, you can test if this scipt can can generate test.png file when
+you have a image in clipboard
 
 ### where is post image?
 
@@ -59,4 +59,5 @@ this code is based on https://github.com/Timag/imageclipr and make some changes:
 - remove python dependency
 - remove shiny, only shortcut
 - add support for blogdown post
+
 
