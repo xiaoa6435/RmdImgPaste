@@ -77,28 +77,27 @@ generate_filepath <- function() {
 
   filename <- format(Sys.time(), "rmd-img-paste-%Y%m%d%H%M%s.png")
   currpath <- rstudioapi::getSourceEditorContext()$path
+  if(!nchar(currpath)) stop("Please save the file before pasting an image.")
 
   if (is_blogdown_post()) {
     proj_root <- rstudioapi::getActiveProject()
-    dir = file.path(
-      proj_root, "static", dirname(gsub(".*content/", "", currpath)),
+    post_files <- file.path(
+      dirname(gsub(".*content/", "", currpath)),
       paste0(tools::file_path_sans_ext(basename(currpath)), "_files")
     )
-
+    dir = file.path(proj_root, "static", post_files)
     # path like /post/..., insert to md
-    dir_insert = strsplit(dir, file.path("static", ""))[[1]][2]
-    dir_insert = file.path(
-      ifelse(getOption("blogdown.insertimage.usebaseurl", FALSE),
-             blogdown:::load_config()$baseurl, ""
-      ), dir_insert
-    )
+    baseurl <- ifelse(
+      getOption("blogdown.insertimage.usebaseurl", FALSE),
+      blogdown:::load_config()$baseurl, "")
+    dir_insert <- file.path(baseurl, post_files)
 
   } else {
     dir <- file.path(dirname(currpath), ".asserts")
     dir_insert <- ".asserts"
   }
 
-  if (!file.exists(dir)) dir.create(dir)
+  if (!file.exists(dir)) dir.create(dir, recursive = TRUE)
   list(
     filepath = file.path(dir, filename),
     filepath_insert = file.path(dir_insert, filename)
@@ -107,6 +106,7 @@ generate_filepath <- function() {
 
 insert_image_code <- function() {
   doc_id <- rstudioapi::getSourceEditorContext()$id
+
   if (doc_id %in% c("#console", "#terminal")) {
     stop("You can`t insert an image in the console nor in the terminal.
          Please select a line in the source editor.")

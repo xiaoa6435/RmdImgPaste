@@ -1,7 +1,6 @@
 ## RmdImgPaste
 
-RStudio Addin: Copy images from clipboard into .Rmd files or a blogdown post
-
+RStudio Addin: Copy images from clipboard into .Rmd files or a blogdown post, this is a usage from Timag
 ![Usage, image from Timag/imageclipr](https://github.com/Timag/imageclipr/blob/master/usage.gif)
 
 ## Installation
@@ -47,7 +46,6 @@ for a general Rmd files, all paste image in curr_path/.assets/, named like rmd-i
 
 for a blogdown post(.Rproj have somethin like BuildType: Website and in content/post), all paste image in static/post/postname_files/, and
 insert code like `![](/post/postname_files/rmd-img-paste-%Y%m%d%H%M%s.png)`
-
 
 ## Usage
 Tools -> Modify Keyboard Shortcuts -> RmdImgPaste，Customize a shortcut, for example, ctrl + v
