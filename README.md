@@ -60,4 +60,3 @@ this code is based on https://github.com/Timag/imageclipr and make some changes:
 - remove shiny, only shortcut
 - add support for blogdown post
 
-
