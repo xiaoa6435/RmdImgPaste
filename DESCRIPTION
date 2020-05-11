@@ -1,11 +1,18 @@
 Package: RmdImgPaste
 Type: Package
-Title:  Insert Image from Clipboard, for Rmd and blogdown post
+Title: Just Use 'cmd + v' to Paste Image to a Rmd File or Blogdown Post
 Version: 0.1.0
-Author: zhangzhenhao
-Maintainer: The package maintainer <zngzen28@gmail.com>
-Description: Insert Image from Clipboard, for Rmd and blogdown post
-License: What license is it under?
+Author: zhangzhenhao <zngzen28@gmail.com>
+Maintainer: zhangzhenhao <zngzen28@gmail.com>
+Description: When have binded shortcuts(for example 'cmd + v'), you can just use
+    'cmd + v' paste image into a blogdown post or a Rmd file. for linux user, xlip 
+    is needed; for windows 7, powershell need updated to 5.1.
+License: CC0
 Encoding: UTF-8
 LazyData: true
 Imports: rstudioapi
+Suggests:
+  rmarkdown,
+  blogdown
+URL: https://github.com/xiaoa6435/RmdImgPaste
+BugReports: https://github.com/xiaoa6435/RmdImgPaste/issues

@@ -22,7 +22,7 @@ grab_clipboard <- function(filepath) {
       "  }\""
     )
     system(script)
-  } else if (grepl("linux-gnu", R.version$os)) {
+  } else {
     # Executing on Linux! -> use xclip
     tryCatch(
       targets <- tolower(
@@ -85,11 +85,12 @@ generate_filepath <- function() {
       dirname(gsub(".*content/", "", currpath)),
       paste0(tools::file_path_sans_ext(basename(currpath)), "_files")
     )
-    dir = file.path(proj_root, "static", post_files)
+    dir <- file.path(proj_root, "static", post_files)
     # path like /post/..., insert to md
-    baseurl <- ifelse(
-      getOption("blogdown.insertimage.usebaseurl", FALSE),
-      blogdown:::load_config()$baseurl, "")
+    # baseurl <- ifelse(
+    #   getOption("blogdown.insertimage.usebaseurl", FALSE),
+    #   blogdown::load_config()$baseurl, "")
+    baseurl <- ''
     dir_insert <- file.path(baseurl, post_files)
 
   } else {
