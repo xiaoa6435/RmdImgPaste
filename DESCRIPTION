@@ -4,9 +4,9 @@ Title: Just Use 'cmd + v' to Paste Image to a Rmd File or Blogdown Post
 Version: 0.1.0
 Author: zhangzhenhao <zngzen28@gmail.com>
 Maintainer: zhangzhenhao <zngzen28@gmail.com>
-Description: When have binded shortcuts(for example 'cmd + v'), you can just use
-    'cmd + v' paste image into a blogdown post or a Rmd file. for linux user, xlip 
-    is needed; for windows 7, powershell need updated to 5.1.
+Description: When have binded shortcuts (for example 'cmd + v'), you can just use 
+    'cmd + v' paste image into a blogdown post or a Rmd file. for 'linux' user, 
+    'xlip' is needed; for 'windows' 7, 'powershell' need updated to 5.1.
 License: CC0
 Encoding: UTF-8
 LazyData: true

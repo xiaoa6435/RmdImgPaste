@@ -94,8 +94,8 @@ generate_filepath <- function() {
     dir_insert <- file.path(baseurl, post_files)
 
   } else {
-    dir <- file.path(dirname(currpath), ".asserts")
-    dir_insert <- ".asserts"
+    dir <- file.path(dirname(currpath), ".assets")
+    dir_insert <- ".assets"
   }
 
   if (!file.exists(dir)) dir.create(dir, recursive = TRUE)
@@ -105,7 +105,7 @@ generate_filepath <- function() {
   )
 }
 
-insert_image_code <- function() {
+insert_image_from_clipboard_addin <- function() {
   doc_id <- rstudioapi::getSourceEditorContext()$id
 
   if (doc_id %in% c("#console", "#terminal")) {
