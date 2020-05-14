@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+.Rhistory
+.RData
+.gitignore
+cran-comments.md
+^CRAN-RELEASE$
+.asserts
+.assets

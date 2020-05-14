@@ -1,7 +1,7 @@
 ## Resubmission
 This is a resubmission. In this version I have: 
-* add single quote to sowtware names in DESCRIPTION, such as 'Windows' or 'xlip', 'linux', 'powershell'
-* adjustment some format issues in DESCRIPTION
+* add SystemRequirements
+* add vignettes and documentation
 
 ## Test environments
 * local OS X install, R 3.6.3

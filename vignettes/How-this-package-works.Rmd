@@ -1,0 +1,60 @@
+---
+title: "How-this-package-works"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-this-ackage-works}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This package depends on rstudioapi, I don't think it can work without Rstudio. If you don't use Rstudio, grab_clipboard may be help for you: it grab image in clipboard and save to a local path.
+
+## Usage
+
+In Rstudio, Tools -> Modify Keyboard Shortcuts -> RmdImgPaste，Customize a shortcut (for example, cmd + v, if not conflict), then you can just use 'cmd + v' paste image into a blogdown post or a Rmd file.
+
+## Troubleshooting
+
+### how to read image from clipboard?
+in macos, exec script like this:
+```
+osascript -e '
+  set theFile to (open for access POSIX file "test.png" with write permission)
+  try
+    write (the clipboard as «class PNGf») to theFile
+  end try
+  close access theFile'
+```
+
+in window (for 'windows7', 'powershell' need updated to 5.1):
+```
+powershell -sta '
+  Add-Type -AssemblyName System.Windows.Forms;,
+  if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {
+    [System.Drawing.Bitmap][System.Windows.Forms.Clipboard]::GetDataObject(
+      ).getimage().Save("test.png", [System.Drawing.Imaging.ImageFormat]::Png)
+  }'
+```
+
+in linux ([xlip](https://github.com/astrand/xclip) is needed):
+```
+xclip -selection clipboard -t image/png -o > "test.png"
+```
+
+if this Addin not work, you can test if this scipt can can generate test.png file when
+you have a image on clipboard
+
+### where is paste image?
+
+for a general Rmd files, all paste image in curr_path/.assets/, named like rmd-img-paste-%Y%m%d%H%M%s.png
+
+for a blogdown post(.Rproj have somethin like BuildType: Website and in content/post), all paste image in static/post/postname_files/, and
+insert code like `![](/post/postname_files/rmd-img-paste-%Y%m%d%H%M%s.png)`
+
+
+## Acknowledgements
+this code is based on https://github.com/Timag/imageclipr and make some changes:
+
+- remove python dependency
+- remove shiny, only shortcuts
+- add support for blogdown post
