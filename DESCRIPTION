@@ -5,14 +5,17 @@ Version: 0.1.0
 Author: zhangzhenhao <zngzen28@gmail.com>
 Maintainer: zhangzhenhao <zngzen28@gmail.com>
 Description: When have binded shortcuts (for example 'cmd + v'), you can just use 
-    'cmd + v' paste image into a blogdown post or a Rmd file. for 'linux' user, 
-    'xlip' is needed; for 'windows7', 'powershell' need updated to 5.1.
+    'cmd + v' paste image into a blogdown post or a Rmd file.
 License: CC0
 Encoding: UTF-8
 LazyData: true
 Imports: rstudioapi
 Suggests:
-  rmarkdown,
-  blogdown
+    rmarkdown,
+    blogdown,
+    knitr
 URL: https://github.com/xiaoa6435/RmdImgPaste
 BugReports: https://github.com/xiaoa6435/RmdImgPaste/issues
+VignetteBuilder: knitr
+SystemRequirements: xclip (https://github.com/astrand/xclip)
+RoxygenNote: 7.1.0

@@ -1,14 +1,19 @@
-## RmdImgPaste
+---
+title: "How-this-package-works"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-this-ackage-works}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-RStudio Addin: Copy images from clipboard into .Rmd files or a blogdown post.
+This package depends on rstudioapi, I don't think it can work without Rstudio. If you don't use Rstudio, grab_clipboard may be help for you: it grab image in clipboard and save to a local path.
 
-## Installation
-`devtools::install_github('xiaoa6435/RmdImgPaste')`
+## Usage
 
-## Dependencies
-rstudioapi. for linux user, xlip is needed; for windows 7, powershell need updated to 5.1 
+In Rstudio, Tools -> Modify Keyboard Shortcuts -> RmdImgPaste，Customize a shortcut (for example, cmd + v, if not conflict), then you can just use 'cmd + v' paste image into a blogdown post or a Rmd file.
 
-## Technical walkthrough
+## Troubleshooting
 
 ### how to read image from clipboard?
 in macos, exec script like this:
@@ -21,7 +26,7 @@ osascript -e '
   close access theFile'
 ```
 
-in window
+in window (for 'windows7', 'powershell' need updated to 5.1):
 ```
 powershell -sta '
   Add-Type -AssemblyName System.Windows.Forms;,
@@ -31,7 +36,7 @@ powershell -sta '
   }'
 ```
 
-in linux (not test):
+in linux ([xlip](https://github.com/astrand/xclip) is needed):
 ```
 xclip -selection clipboard -t image/png -o > "test.png"
 ```
@@ -46,8 +51,6 @@ for a general Rmd files, all paste image in curr_path/.assets/, named like rmd-i
 for a blogdown post(.Rproj have somethin like BuildType: Website and in content/post), all paste image in static/post/postname_files/, and
 insert code like `![](/post/postname_files/rmd-img-paste-%Y%m%d%H%M%s.png)`
 
-## Usage
-Tools -> Modify Keyboard Shortcuts -> RmdImgPaste，Customize a shortcut(for example, cmd + v), then you can just use 'cmd + v' paste image into a blogdown post or a Rmd file
 
 ## Acknowledgements
 this code is based on https://github.com/Timag/imageclipr and make some changes:
@@ -55,6 +58,3 @@ this code is based on https://github.com/Timag/imageclipr and make some changes:
 - remove python dependency
 - remove shiny, only shortcuts
 - add support for blogdown post
-
-
-

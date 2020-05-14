@@ -1,3 +1,7 @@
+#' grab image in clipboard (if have), and save to a local filepath
+#' @export
+#' @param filepath a string, save clipboard's image in this filepath
+
 grab_clipboard <- function(filepath) {
   platform <- Sys.info()[1]
   if (platform == "Darwin") {
@@ -11,6 +15,9 @@ grab_clipboard <- function(filepath) {
       close access theFile'"
     )
     system(script)
+    # in mac os, if no image in clipboard, exec script will create a empty image
+    if (file.size(filepath) == 0) file.remove(filepath)
+
   } else if (platform == "Windows") {
     script <- paste0(
       "powershell -sta \"\n",
@@ -22,6 +29,8 @@ grab_clipboard <- function(filepath) {
       "  }\""
     )
     system(script)
+
+
   } else {
     # Executing on Linux! -> use xclip
     tryCatch(
@@ -37,7 +46,6 @@ grab_clipboard <- function(filepath) {
     }
   }
 
-  # in mac os, if no image in clipboard, exec script will create a empty image
   # in window, no image be create
   if (!file.exists(filepath) || file.size(filepath) == 0) {
     stop("Clipboard data is not an image.")
@@ -65,8 +73,7 @@ is_blogdown_post <- function() {
 }
 
 generate_filepath <- function() {
-  #' @return
-  # list of filepath and filepath_insert
+  # return filepath and filepath_insert
   #   filepath: absolute path, to save image in clipboard
   #   filepath_insert: path in rmd code, ![](filepath_insert)
   #
