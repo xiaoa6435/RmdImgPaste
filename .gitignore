@@ -5,4 +5,5 @@
 inst/doc
 .DS_Store
 .asserts
+.assets
 .gitignore
