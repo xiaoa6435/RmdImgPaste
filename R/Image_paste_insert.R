@@ -99,7 +99,7 @@ generate_default_filepath <- function() {
   # by default, this will create a subfolder if not exist
   # override by options(rmarkdown.create_sub_dir = FALSE)
   if (!file.exists(dir) && getOption("rmarkdown.create_sub_dir", TRUE)) {
-    file.create(dir, recursive = TRUE)
+    dir.create(dir, recursive = TRUE)
   }
   file.path(dir, filename)
 }
