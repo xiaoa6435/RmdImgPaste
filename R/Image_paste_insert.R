@@ -16,7 +16,7 @@ grab_clipboard <- function(filepath) {
       )
     system(script)
     # in mac os, if no image in clipboard, exec script will create a empty image
-    if (file.size(filepath) == 0) file.remove(filepath)
+    if (is.na(file.size(filepath)) | file.size(filepath) == 0) file.remove(filepath)
   } else if (is_windows()) {
     script <- paste0(
       "powershell -sta \"\n",
